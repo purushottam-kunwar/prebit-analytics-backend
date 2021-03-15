@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { AdUnitSizeEntity } from '../ad-unit-size/ad-unit-size.entity';
 
 @Entity()
 export class AdUnitEntity {
@@ -18,6 +19,8 @@ export class AdUnitEntity {
   @Column()
   adUnitPathId: string;
 
-  @Column()
-  adUnitSize: string;
+  @OneToMany(() => AdUnitSizeEntity, (adUnitSize) => adUnitSize.adUnit, {
+    cascade: true, //insert into database
+  })
+  adUnitSize: AdUnitSizeEntity[];
 }

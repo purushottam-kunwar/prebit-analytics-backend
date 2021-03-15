@@ -1,4 +1,5 @@
 import { IsString } from 'class-validator';
+import { CreateAdUnitSizeDto } from '../dto/create-ad-unit-size.dto';
 
 export class CreateAdUnitDto {
   @IsString()
@@ -13,6 +14,5 @@ export class CreateAdUnitDto {
   @IsString()
   readonly adUnitPathId: string;
 
-  @IsString()
-  readonly adUnitSize: string;
+  readonly adUnitSize: CreateAdUnitSizeDto[];
 }
