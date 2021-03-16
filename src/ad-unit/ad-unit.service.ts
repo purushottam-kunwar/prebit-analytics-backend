@@ -56,7 +56,7 @@ export class AdUnitService {
   findAll(paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
     return this.adUnitReposatory.find({
-      // relations: ['adParams'],
+      relations: ['adUnitBiddersParams', 'adUnitSize'],
       // skip: offset,
       // take: limit,
     });
@@ -64,7 +64,7 @@ export class AdUnitService {
 
   async findOne(id: string) {
     const adUnit = await this.adUnitReposatory.findOne(id, {
-      // relations: ['flavors'],
+      relations: ['adUnitBiddersParams', 'adUnitSize'],
     });
     if (!adUnit) {
       throw new NotFoundException(`Coffe #${id} not found`);
