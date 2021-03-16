@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { AdUnitSizeEntity } from '../ad-unit-size/ad-unit-size.entity';
+import { AdUnitBiddersParams } from './ad-unit-bidders-params.entity';
 
 @Entity()
 export class AdUnitEntity {
@@ -18,6 +19,11 @@ export class AdUnitEntity {
 
   @Column()
   adUnitPathId: string;
+
+  @OneToMany(() => AdUnitBiddersParams, (adUnitBidder) => adUnitBidder.adUnit, {
+    cascade: true, //insert into database
+  })
+  adUnitBiddersParams: AdUnitBiddersParams[];
 
   @OneToMany(() => AdUnitSizeEntity, (adUnitSize) => adUnitSize.adUnit, {
     cascade: true, //insert into database

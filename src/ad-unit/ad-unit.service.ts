@@ -5,6 +5,7 @@ import { AdUnitEntity } from './ad-unit.entity';
 import { AdUnitSizeEntity } from '../ad-unit-size/ad-unit-size.entity';
 import { CreateAdUnitDto } from './dto/create-add-unit.dto';
 import { PaginationQueryDto } from '../commom/dto/pagination-query.dto';
+import { AdUnitBiddersParams } from './ad-unit-bidders-params.entity';
 
 @Injectable()
 export class AdUnitService {
@@ -13,6 +14,8 @@ export class AdUnitService {
     private readonly adUnitReposatory: Repository<AdUnitEntity>,
     @InjectRepository(AdUnitSizeEntity)
     private readonly adUnitSizeReposatory: Repository<AdUnitSizeEntity>,
+    @InjectRepository(AdUnitBiddersParams)
+    private readonly adUnitBiddersReposatory: Repository<AdUnitBiddersParams>,
   ) {}
 
   async createAdUnit(createAdUnitDto: CreateAdUnitDto): Promise<AdUnitEntity> {
@@ -22,8 +25,11 @@ export class AdUnitService {
     adUnit.adUnitPathId = createAdUnitDto.adUnitPathId;
     adUnit.divName = createAdUnitDto.divName;
     const newAdUnit = await this.adUnitReposatory.save(adUnit);
-    console.log('newAdUnit', newAdUnit);
     console.log('createAdUnitDto.adUnitSize', createAdUnitDto.adUnitSize);
+    console.log(
+      'createAdUnitDto.adUnitbidderParams',
+      createAdUnitDto.adUnitBiddersParams,
+    );
 
     for (const adUnitSize of createAdUnitDto.adUnitSize) {
       const adUnitSizeData = new AdUnitSizeEntity();
@@ -34,6 +40,14 @@ export class AdUnitService {
 
       const newSChain = await this.adUnitSizeReposatory.save(adUnitSizeData);
       console.log('newSChain', newSChain);
+    }
+
+    for (const adUnitParams of createAdUnitDto.adUnitBiddersParams) {
+      const data = new AdUnitBiddersParams();
+      data.paramsName = adUnitParams.paramsName;
+      data.paramsValue = adUnitParams.paramsValue;
+      data.adUnit = newAdUnit;
+      await this.adUnitBiddersReposatory.save(data);
     }
 
     return newAdUnit;
