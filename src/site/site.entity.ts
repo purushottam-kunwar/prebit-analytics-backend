@@ -1,6 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SChainEntity } from '../site-chain/site-chain.entity';
 import { SGranularityEntity } from '../site-granularity/site-granularity.entity';
+import { BidderEntity } from '../bidder/bidder.entity';
+import { SiteBiddersEntity } from './site-Bidders.entity';
 
 @Entity()
 export class SiteEntity {

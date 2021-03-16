@@ -7,6 +7,7 @@ import { SiteModule } from './site/site.module';
 import { SiteGranularityModule } from './site-granularity/site-granularity.module';
 import { SiteChainModule } from './site-chain/site-chain.module';
 import { AdUnitModule } from './ad-unit/ad-unit.module';
+import { SiteBiddersModule } from './site-bidders/site-bidders.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AdUnitModule } from './ad-unit/ad-unit.module';
     AdUnitModule,
     SiteGranularityModule,
     SiteChainModule,
+    SiteBiddersModule,
   ],
 })
 export class AppModule {}

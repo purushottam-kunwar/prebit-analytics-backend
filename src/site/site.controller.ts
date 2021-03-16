@@ -13,6 +13,8 @@ import { SiteEntity } from './site.entity';
 import { SiteService } from './site.service';
 import { CreateAdSiteDto } from './dto/create-ad-site.dto';
 import { PaginationQueryDto } from '../commom/dto/pagination-query.dto';
+import { CreateSiteBiddersDto } from '../site/dto/create-site-bidders.dto';
+import { SiteBiddersEntity } from './site-Bidders.entity';
 
 @Controller('site')
 export class SiteController {
@@ -21,7 +23,10 @@ export class SiteController {
   constructor(private siteService: SiteService) {}
 
   @Post()
-  createSite(@Body() createAdSiteDto: CreateAdSiteDto): Promise<SiteEntity> {
+  createSite(
+    @Body() createAdSiteDto: CreateAdSiteDto,
+    createSiteBiddersDto: CreateSiteBiddersDto,
+  ): Promise<SiteEntity> {
     this.logger.verbose(
       `creating a new task. Data: ${JSON.stringify(createAdSiteDto)}`,
     );
