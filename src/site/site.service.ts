@@ -8,7 +8,6 @@ import { SGranularityEntity } from 'src/site-granularity/site-granularity.entity
 import { SChainEntity } from 'src/site-chain/site-chain.entity';
 import { PaginationQueryDto } from '../commom/dto/pagination-query.dto';
 import { SiteBiddersEntity } from './site-Bidders.entity';
-import { CreateSiteBiddersDto } from './dto/create-site-bidders.dto';
 
 @Injectable()
 export class SiteService {

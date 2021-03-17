@@ -9,4 +9,7 @@ export class CreateAdUnitSizeDto {
 
   @IsString()
   readonly both: string;
+
+  @IsString()
+  readonly adUnitName: string;
 }

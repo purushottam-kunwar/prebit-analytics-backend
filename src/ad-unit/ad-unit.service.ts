@@ -6,6 +6,8 @@ import { AdUnitSizeEntity } from '../ad-unit-size/ad-unit-size.entity';
 import { CreateAdUnitDto } from './dto/create-add-unit.dto';
 import { PaginationQueryDto } from '../commom/dto/pagination-query.dto';
 import { AdUnitBiddersParams } from './ad-unit-bidders-params.entity';
+// import { AdUnitNumberEntiry } from 'src/ad-unit-number/ad-unit-number.entity';
+// import { CreateAdUnitNumberDto } from '../ad-unit/dto/create-ad-unit-number.dto';
 
 @Injectable()
 export class AdUnitService {
@@ -15,7 +17,7 @@ export class AdUnitService {
     @InjectRepository(AdUnitSizeEntity)
     private readonly adUnitSizeReposatory: Repository<AdUnitSizeEntity>,
     @InjectRepository(AdUnitBiddersParams)
-    private readonly adUnitBiddersReposatory: Repository<AdUnitBiddersParams>,
+    private readonly adUnitBiddersParamsReposatory: Repository<AdUnitBiddersParams>,
   ) {}
 
   async createAdUnit(createAdUnitDto: CreateAdUnitDto): Promise<AdUnitEntity> {
@@ -24,30 +26,33 @@ export class AdUnitService {
     adUnit.adUnitName = createAdUnitDto.adUnitName;
     adUnit.adUnitPathId = createAdUnitDto.adUnitPathId;
     adUnit.divName = createAdUnitDto.divName;
+
     const newAdUnit = await this.adUnitReposatory.save(adUnit);
-    console.log('createAdUnitDto.adUnitSize', createAdUnitDto.adUnitSize);
-    console.log(
-      'createAdUnitDto.adUnitbidderParams',
-      createAdUnitDto.adUnitBiddersParams,
-    );
-
-    for (const adUnitSize of createAdUnitDto.adUnitSize) {
-      const adUnitSizeData = new AdUnitSizeEntity();
-      adUnitSizeData.height = adUnitSize.height;
-      adUnitSizeData.width = adUnitSize.width;
-      adUnitSizeData.both = adUnitSize.both;
-      adUnitSizeData.adUnit = newAdUnit;
-
-      const newSChain = await this.adUnitSizeReposatory.save(adUnitSizeData);
-      console.log('newSChain', newSChain);
-    }
+    console.log('Bidder', createAdUnitDto.adUnitBiddersParams);
+    console.log('Number', createAdUnitDto.adUnitSize);
 
     for (const adUnitParams of createAdUnitDto.adUnitBiddersParams) {
       const data = new AdUnitBiddersParams();
       data.paramsName = adUnitParams.paramsName;
       data.paramsValue = adUnitParams.paramsValue;
       data.adUnit = newAdUnit;
-      await this.adUnitBiddersReposatory.save(data);
+
+      const newAdUnitBidder = await this.adUnitBiddersParamsReposatory.save(
+        data,
+      );
+      console.log('newAdUnitBidder save', newAdUnitBidder);
+    }
+
+    for (const adUnitSize of createAdUnitDto.adUnitSize) {
+      const adUnitSizeData = new AdUnitSizeEntity();
+      adUnitSizeData.height = adUnitSize.height;
+      adUnitSizeData.width = adUnitSize.width;
+      adUnitSizeData.both = adUnitSize.both;
+      adUnitSizeData.adUnitName = adUnitSize.adUnitName;
+      adUnitSizeData.adUnit = newAdUnit;
+
+      const newAdSize = await this.adUnitSizeReposatory.save(adUnitSizeData);
+      console.log('newAdSize save ', newAdSize);
     }
 
     return newAdUnit;

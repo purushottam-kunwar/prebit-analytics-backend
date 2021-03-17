@@ -6,7 +6,6 @@ import { BidderEntity } from './bidder.entity';
 import { AdParamEntity } from '../ad-param/ad-param.entity';
 import { CreateBidderDto } from './dto/create-ad-bidder.dto';
 import { PaginationQueryDto } from '../commom/dto/pagination-query.dto';
-import { UpdateBiddersDto } from '../bidder/dto/update-ad-bidder.dto';
 
 @Injectable()
 export class BidderService {

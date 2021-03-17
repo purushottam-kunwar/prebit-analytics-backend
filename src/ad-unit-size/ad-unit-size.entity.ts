@@ -1,11 +1,15 @@
+import { AdUnitEntity } from 'src/ad-unit/ad-unit.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { AdUnitEntity } from '../ad-unit/ad-unit.entity';
+// import { AdUnitNumberEntiry } from '../ad-unit-number/ad-unit-number.entity';
 
 @Entity()
 export class AdUnitSizeEntity {
   // for primary key
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  adUnitName: string;
 
   @Column()
   height: string;
@@ -16,6 +20,6 @@ export class AdUnitSizeEntity {
   @Column()
   both: string;
 
-  @ManyToOne(() => AdUnitEntity, (site) => site.adUnitSize)
+  @ManyToOne(() => AdUnitEntity, (adUnit) => adUnit.adUnitSize)
   adUnit: AdUnitEntity;
 }
