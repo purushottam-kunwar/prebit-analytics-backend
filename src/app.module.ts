@@ -8,6 +8,7 @@ import { SiteGranularityModule } from './site-granularity/site-granularity.modul
 import { SiteChainModule } from './site-chain/site-chain.module';
 import { AdUnitModule } from './ad-unit/ad-unit.module';
 import { SiteBiddersModule } from './site-bidders/site-bidders.module';
+import { GenerateJsTagModule } from './generate-js-tag/generate-js-tag.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { SiteBiddersModule } from './site-bidders/site-bidders.module';
     SiteGranularityModule,
     SiteChainModule,
     SiteBiddersModule,
+    GenerateJsTagModule,
   ],
 })
 export class AppModule {}
