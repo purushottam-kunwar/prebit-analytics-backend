@@ -32,7 +32,6 @@ export class GenerateJsTagService {
       id: adUnit.id,
       websiteUrl: adUnit.websiteUrl,
       adUnitName: adUnit.adUnitName,
-      bidderName1: adUnit.adUnitBiddersParams[0].adUnit,
       paramsName1: adUnit.adUnitBiddersParams[0].paramsName,
       paramsValue1: adUnit.adUnitBiddersParams[0].paramsValue,
       paramsName2: adUnit.adUnitBiddersParams[1].paramsName,
